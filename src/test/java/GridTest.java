@@ -1,4 +1,5 @@
 import game.Cell;
+import game.Game;
 import game.Grid;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,7 @@ class GridTest {
                 {O, X, X, O},
                 {O, O, O, O}
         };
-
-        Grid grid = new Grid();
-        grid.setCells(initialState);
-
+        Grid grid = new Grid(initialState);
         Assertions.assertEquals(initialState, grid.getCells());
     }
 
@@ -32,12 +30,12 @@ class GridTest {
                 {O, X, O, O},
                 {O, O, O, O}
         };
-        Grid grid = new Grid();
-        grid.setCells(initialState);
-
-        int neighbors = grid.countNeighbors(2,1);
+        Grid grid = new Grid(initialState);
+        Game game = new Game(grid);
+        int neighbors = game.countNeighbors(grid,2,1);
         Assertions.assertEquals(0, neighbors);
     }
+
     @Test
     void should_countThreeNeighbors_when_inCornerOfFullGrid() {
         Cell[][] initialState = new Cell[][] {
@@ -46,10 +44,9 @@ class GridTest {
                 {X, X, X, X},
                 {X, X, X, X}
         };
-        Grid grid = new Grid();
-        grid.setCells(initialState);
-
-        int neighbors = grid.countNeighbors(0,0);
+        Grid grid = new Grid(initialState);
+        Game game = new Game(grid);
+        int neighbors = game.countNeighbors(grid,2,1);
         Assertions.assertEquals(3, neighbors);
     }
 
@@ -61,8 +58,7 @@ class GridTest {
             {O, X, O, O},
             {O, O, O, O}
     };
-    Grid grid = new Grid();
-    grid.setCells(initialState);
+    Grid grid = new Grid(initialState);
     Assertions.assertTrue(grid.cellAlive(2,1));
     }
 }
