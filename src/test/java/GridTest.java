@@ -5,32 +5,64 @@ import org.junit.jupiter.api.Test;
 
 class GridTest {
 
-    public static final boolean O = false;
-    public static final boolean X = false;
+
+    public static final Cell O = Cell.DEAD;
+    public static final Cell X = Cell.ALIVE;
 
     @Test
     void should_equalInitialState_when_initiated() {
-        Grid grid = new Grid();
-
-        boolean[][] initialState = new boolean[][] {
+        Cell[][] initialState = new Cell[][] {
                 {O, O, O, O},
                 {O, X, X, O},
                 {O, X, X, O},
                 {O, O, O, O}
         };
-        for(int row = 0; row < initialState.length; row++) {
-            for(int col = 0; col < initialState[row].length; col++) {
-                grid.setCellAtPosition(row, col, new Cell(initialState[row][col]));
-            }
-        }
-        boolean[][] gridStatus = new boolean[initialState.length][initialState[0].length];
-        for(int row = 0; row < initialState.length; row++) {
-            for(int col = 0; col < initialState[row].length; col++) {
-                gridStatus[row][col] = grid.getCellAtPosition(row, col).isCellAlive();
-            }
-        }
-        Assertions.assertEquals(initialState, gridStatus);
 
+        Grid grid = new Grid();
+        grid.setCells(initialState);
 
+        Assertions.assertEquals(initialState, grid.getCells());
+    }
+
+    @Test
+    void should_countZeroNeighbors_when_onlyOneCell() {
+        Cell[][] initialState = new Cell[][] {
+                {O, O, O, O},
+                {O, O, O, O},
+                {O, X, O, O},
+                {O, O, O, O}
+        };
+        Grid grid = new Grid();
+        grid.setCells(initialState);
+
+        int neighbors = grid.countNeighbors(2,1);
+        Assertions.assertEquals(0, neighbors);
+    }
+    @Test
+    void should_countThreeNeighbors_when_inCornerOfFullGrid() {
+        Cell[][] initialState = new Cell[][] {
+                {X, X, X, X},
+                {X, X, X, X},
+                {X, X, X, X},
+                {X, X, X, X}
+        };
+        Grid grid = new Grid();
+        grid.setCells(initialState);
+
+        int neighbors = grid.countNeighbors(0,0);
+        Assertions.assertEquals(3, neighbors);
+    }
+
+    @Test
+    void should_beAlive_when_Alive() {
+    Cell[][] initialState = new Cell[][] {
+            {O, O, O, O},
+            {O, O, O, O},
+            {O, X, O, O},
+            {O, O, O, O}
+    };
+    Grid grid = new Grid();
+    grid.setCells(initialState);
+    Assertions.assertTrue(grid.cellAlive(2,1));
     }
 }

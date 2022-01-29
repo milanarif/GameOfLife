@@ -1,15 +1,6 @@
 package game;
 
-
-import lombok.*;
-
-@Getter
-@Setter
-@AllArgsConstructor
-public class Cell {
-    private boolean cellAlive;
-
-    public int countLivingNeighbors() {
-        return 0;
-    }
+public enum Cell {
+    DEAD,
+    ALIVE
 }
