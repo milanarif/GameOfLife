@@ -8,4 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Cell {
     private boolean cellAlive;
+
+    public int countLivingNeighbors() {
+        return 0;
+    }
 }

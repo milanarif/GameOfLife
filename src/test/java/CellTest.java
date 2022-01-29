@@ -7,16 +7,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CellTest {
 
     @Test
-    void isAlive_True_cellIsAlive() {
+    void should_beAlive_when_instantiatedAlive() {
         Cell cell = new Cell(true);
         assertTrue(cell.isCellAlive());
     }
 
     @Test
-    void isAlive_False_cellIsDead() {
+    void should_beDead_when_instantiatedDead() {
         Cell cell = new Cell(false);
         assertFalse(cell.isCellAlive());
     }
 
-
+    @Test
+    void should_haveZeroNeighbors_when_onlyOneCellCreated() {
+        Cell cell = new Cell(true);
+        assertEquals(0, cell.countLivingNeighbors());
+    }
 }
