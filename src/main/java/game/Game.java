@@ -27,7 +27,6 @@ public record Game(Grid grid) {
     public static Cell determineCellFuture(Game game, int row, int col) {
         int neighborCount = countNeighbors(game, row, col);
         Cell currentStatus = game.grid().cells()[row][col];
-
         if (neighborCount >= 2 && neighborCount < 4) {
             if (neighborCount == 3) {
                 return Cell.ALIVE;
@@ -38,9 +37,7 @@ public record Game(Grid grid) {
 
     public static int countNeighbors(Game game, int row, int col) {
         int neighbors = 0;
-
         int[] gridDimensions = new int[]{Grid.getRows(game.grid()), Grid.getColumns(game.grid())};
-
         for (int[] offset : NEIGHBORS) {
             if (validPosition(offset, gridDimensions, row, col) && Grid.cellAlive(game.grid(), row + offset[0], col + offset[1])) {
                 neighbors++;

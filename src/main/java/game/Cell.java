@@ -7,10 +7,10 @@ public enum Cell {
     @Override
     public String toString() {
         if (this.equals(DEAD)) {
-            return ("O");
+            return (".");
         }
         else {
-            return "X";
+            return "*";
         }
     }
 }

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 class GridTest {
 
-
     public static final Cell O = Cell.DEAD;
     public static final Cell X = Cell.ALIVE;
 
@@ -20,20 +19,6 @@ class GridTest {
         };
         Grid grid = new Grid(initialState);
         Assertions.assertEquals(initialState, grid.cells());
-    }
-
-    @Test
-    void should_countZeroNeighbors_when_onlyOneCell() {
-        Cell[][] initialState = new Cell[][] {
-                {O, O, O, O},
-                {O, O, O, O},
-                {O, X, O, O},
-                {O, O, O, O}
-        };
-        Grid grid = new Grid(initialState);
-        Game game = new Game(grid);
-        int neighbors = Game.countNeighbors(game,2,1);
-        Assertions.assertEquals(0, neighbors);
     }
 
     @Test

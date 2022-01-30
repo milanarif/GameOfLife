@@ -1,44 +1,51 @@
 package game;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Main {
 
-    public static final Cell O = Cell.DEAD;
-    public static final Cell X = Cell.ALIVE;
+    private static final String FILEPATH = "C://Github/GameOfLife/initialState.txt";
 
-    public static void main(String[] args) throws InterruptedException {
-        Cell[][] initialState = new Cell[][] {
-                {O, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, O, X, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, X, X, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O},
-                {O, O, O, O, O, O, O, O, O, O, O, O, O, O, O, O}
-        };
 
-        Game game = new Game(new Grid(initialState));
-        System.out.println(Grid.getColumns(game.grid()));
-        System.out.println(Grid.getRows(game.grid()));
+    public static void main(String[] args) throws IOException, InterruptedException {
+        List<String> lines = Files.readAllLines(Paths.get(FILEPATH));
+        Game game = textToGameConverter(lines);
 
         while(true) {
             printGame(game);
-            game = new Game(Game.step(game).grid());
+            game = Game.step(game);
             Thread.sleep(3000);
-
         }
+    }
+
+    public static Game textToGameConverter(List<String> lines) {
+        Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
+        for (int i = 0; i < lines.size(); i++) {
+            char[] chars = lines.get(i).toCharArray();
+            for (int j = 0; j < chars.length; j++) {
+                if (chars[j] == '.') {
+                    cells[i][j] = Cell.DEAD;
+                }
+                else if(chars[j] == '*'){
+                    cells[i][j] = Cell.ALIVE;
+                }
+            }
+        }
+        return new Game(new Grid(cells));
     }
 
     private static void printGame(Game game) {
-        System.out.println("\n\n\n");
+
         for (Cell[] row : game.grid().cells()) {
             for (Cell cell : row){
-                System.out.print(cell + "\t");
+                System.out.print(cell);
             }
             System.out.println("\n");
         }
+        System.out.println("\n");
     }
-
 
 }
