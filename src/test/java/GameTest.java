@@ -18,16 +18,34 @@ class GameTest {
         };
         Grid grid = new Grid(initialState);
         Game game = new Game(grid);
-        game.setGrid(game.step(grid));
+        Grid newGrid = game.step();
+        Game newGame = new Game(newGrid);
 
-        Cell[][] finalState = new Cell[][] {
+        Assertions.assertFalse(newGame.grid().cellAlive(2,1));
+    }
+
+    @Test
+    void should_createCellAndKeepPrevious_when_threeNeighborsInL() {
+        Cell[][] initialState = new Cell[][] {
                 {O, O, O, O},
-                {O, O, O, O},
-                {O, O, O, O},
+                {O, X, X, O},
+                {O, X, O, O},
                 {O, O, O, O}
         };
+        Grid grid = new Grid(initialState);
+        Game game = new Game(grid);
+        Grid newGrid = game.step();
+        Game newGame = new Game(newGrid);
 
-        Assertions.assertFalse(game.getGrid().cellAlive(2,1));
+        Cell[][] newStateExpected = new Cell[][] {
+                {O, O, O, O},
+                {O, X, X, O},
+                {O, X, X, O},
+                {O, O, O, O}
+        };
+        Cell[][] newStateActual = newGame.grid().cells();
+
+        Assertions.assertArrayEquals(newStateExpected, newStateActual);
     }
 
 

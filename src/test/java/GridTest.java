@@ -19,7 +19,7 @@ class GridTest {
                 {O, O, O, O}
         };
         Grid grid = new Grid(initialState);
-        Assertions.assertEquals(initialState, grid.getCells());
+        Assertions.assertEquals(initialState, grid.cells());
     }
 
     @Test
@@ -46,7 +46,7 @@ class GridTest {
         };
         Grid grid = new Grid(initialState);
         Game game = new Game(grid);
-        int neighbors = game.countNeighbors(grid,2,1);
+        int neighbors = game.countNeighbors(grid,0,0);
         Assertions.assertEquals(3, neighbors);
     }
 
