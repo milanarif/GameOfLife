@@ -2,18 +2,16 @@ package game;
 
 public record Grid(Cell[][] cells) {
 
-    public boolean cellAlive(int row, int col) {
-        return cells[row][col] == Cell.ALIVE;
+    public static boolean cellAlive(Grid grid, int row, int col) {
+        return grid.cells()[row][col] == Cell.ALIVE;
     }
 
-    public int getWidth() {
-        return cells.length;
+    public static int getRows(Grid grid) {
+        return grid.cells().length;
     }
 
-    public int getHeight() {
-        return cells[0].length;
+    public static int getColumns(Grid grid) {
+        return grid.cells()[0].length;
     }
+
 }
-
-
-

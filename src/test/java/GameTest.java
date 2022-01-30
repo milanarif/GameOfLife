@@ -18,10 +18,9 @@ class GameTest {
         };
         Grid grid = new Grid(initialState);
         Game game = new Game(grid);
-        Grid newGrid = game.step();
-        Game newGame = new Game(newGrid);
+        Game newGame = Game.step(game);
 
-        Assertions.assertFalse(newGame.grid().cellAlive(2,1));
+        Assertions.assertFalse(Grid.cellAlive(newGame.grid(), 2,1));
     }
 
     @Test
@@ -34,8 +33,7 @@ class GameTest {
         };
         Grid grid = new Grid(initialState);
         Game game = new Game(grid);
-        Grid newGrid = game.step();
-        Game newGame = new Game(newGrid);
+        Game newGame = Game.step(game);
 
         Cell[][] newStateExpected = new Cell[][] {
                 {O, O, O, O},
